@@ -1,4 +1,4 @@
-Travel Easy with Python & Firebase
+               Travel Easy with Python & Firebase
 *************************************************************************
 
 
@@ -12,7 +12,8 @@ encode_faces.py - To Run Encodings
 
 encodings.pickle  -Encoded Image Pickle File
 
-************* Folder Information *******************************************
+************************************************************************
+                     Folder Information
 
 firebase -To download image from cloud store
 dataset -To hold user images for encodings  
