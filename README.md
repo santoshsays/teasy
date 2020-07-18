@@ -16,8 +16,11 @@ encodings.pickle  -Encoded Image Pickle File
                      Folder Information
 
 firebase -To download image from cloud store
+
 dataset -To hold user images for encodings  
+
 account -To hold the user trave information in json file
+
 unknown - To hold the unknown user iamges & deletes everyday at 6:00 Pm
 
  
