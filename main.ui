@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1360</width>
+    <height>613</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="start_btn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1070</x>
+      <y>10</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+font-size:16px;
+color:white;
+font-weight:bold;
+background-color:#44A08D;
+}
+QPushButton:hover
+{
+background: #03bb85;
+color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>S T A R T</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stop_btn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>10</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+font-size:16px;
+color:white;
+font-weight:bold;
+background-color:#44A08D;
+}
+QPushButton:hover
+{
+background: #03bb85;
+color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>S T O P</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="logout_btn">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>10</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+font-size:16px;
+color:white;
+font-weight:bold;
+background-color:#44A08D;
+}
+QPushButton:hover
+{
+background: #03bb85;
+color: white;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>L O G O U T</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>211</width>
+      <height>791</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinAndMaxSize</enum>
+     </property>
+     <item>
+      <widget class="QLabel" name="dashboard">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+background:#263238;
+color:white;
+font-size:24px;
+
+}
+QLabel:hover{
+color:#44A08D;
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="camera1">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>180</y>
+      <width>500</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="camera2">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>180</y>
+      <width>500</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>100</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+color:#263238;
+
+font-size:14px;
+
+}</string>
+    </property>
+    <property name="text">
+     <string>C A M E R A - I</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1050</x>
+      <y>100</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+color:#263238;
+
+font-size:14px;
+
+}</string>
+    </property>
+    <property name="text">
+     <string>C A M E R A - II</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>0</y>
+      <width>1151</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>99</horstretch>
+      <verstretch>10</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+background:#263238;
+color:white;
+font-size:24px;
+
+}
+QLabel:hover{
+color:#44A08D;
+}</string>
+    </property>
+    <property name="text">
+     <string>       Travel Easy  </string>
+    </property>
+   </widget>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>camera1</zorder>
+   <zorder>camera2</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label</zorder>
+   <zorder>start_btn</zorder>
+   <zorder>stop_btn</zorder>
+   <zorder>logout_btn</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1360</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionClose"/>
+    <addaction name="actionExit"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actioncamer_I"/>
+    <addaction name="actioncamera_ii"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actioncheck_our_sites"/>
+    <addaction name="actionUpdates"/>
+   </widget>
+   <widget class="QMenu" name="menuExit">
+    <property name="title">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <addaction name="menuMenu"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuHelp"/>
+   <addaction name="menuExit"/>
+  </widget>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actioncamer_I">
+   <property name="text">
+    <string>camera I</string>
+   </property>
+  </action>
+  <action name="actioncamera_ii">
+   <property name="text">
+    <string>camera II</string>
+   </property>
+  </action>
+  <action name="actioncheck_our_sites">
+   <property name="text">
+    <string>our sites</string>
+   </property>
+  </action>
+  <action name="actionUpdates">
+   <property name="text">
+    <string>updates</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
