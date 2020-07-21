@@ -82,7 +82,8 @@ while True:
             with open(filepath,'r')as f:
                 con=f.read()
                 mycon=json.loads(con)
-                l1=mycon["time-starts"]
+                #updated just now
+                l1=main_time2    
                 t1=datetime.datetime.strptime(l1,'%Y-%m-%d %H:%M:%S.%f')
                 l2=mycon["time-ends"]
                 t2=datetime.datetime.strptime(l2,'%Y-%m-%d %H:%M:%S.%f')
@@ -92,12 +93,14 @@ while True:
             #function to fetch location2 of customers according to time in second
             def fetch_location(seconds):
                 if seconds in range(0,61):
-                    location2="Surathkal"
+                    location2="Mangalore"
                 if seconds in range(61,121):
-                    location2="Manipal"
+                    location2="Surathkal"
                 if seconds in range(121,181):
+                    location2="Manipal"
+                if seconds in range(181,241):
                     location2="Udupi"
-                if seconds>180:
+                if seconds>241:
                     location2="Batkal"
                 return location2
             location2=fetch_location(seconds)
