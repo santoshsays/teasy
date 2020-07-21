@@ -4,18 +4,20 @@ import cv2,face_recognition,imutils
 import argparse,pickle
 import os,time,datetime,json,random,string
 from itertools import count
-#code to create unique names for user 
+#code to pass the argument to the program
 ap = argparse.ArgumentParser()
 ap.add_argument("-c", "--cascade", required=True, help = "path to where the face cascade resides")
 ap.add_argument("-e", "--encodings", required=True, help="path to serialized db of facial encodings")
 args = vars(ap.parse_args('-c haarcascade_frontalface_default.xml -e encodings.pickle'.split()))          
 data = pickle.loads(open(args["encodings"], "rb").read())
 detector = cv2.CascadeClassifier(args["cascade"])
-vs = VideoStream(usePiCamera=True).start()
+#vs = VideoStream(usePiCamera=True).start()
+vs=cv2.VideoCapture(0)
 time.sleep(2.0)
 while True:
-    frame = vs.read()
-    frame = imutils.resize(frame, width=500)
+    ret,frame = vs.read()
+    #frame = imutils.resize(frame, width=500)
+    frame = cv2.resize(frame, (500, 400), interpolation = cv2.INTER_CUBIC) 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     rects = detector.detectMultiScale(gray, scaleFactor=1.1,
@@ -58,7 +60,7 @@ while True:
         if name !="Unknown":
             filepath=os.path.join('/home/pi/tapp/account',"%s.json"%name)
             timenow=str(datetime.datetime.now())
-            travel={'id':id,'name':name,'time-starts':timenow,'location1':"Mangalore"}
+            travel={'id':id,'name':name,'time-starts':timenow,'location1':"Mangalore",'paid':"false"}
             j=json.dumps(travel,default=lambda x: None)
             with open(filepath,'w+') as f:
                 f.write(j)
@@ -108,9 +110,8 @@ while True:
             cv2.putText(frame, show_loc, (left, x), cv2.FONT_HERSHEY_SIMPLEX,
                 0.75, (0,0,255), 2)        
     # display the image to our screen
-    #cv2.namedWindow("Camera I", cv2.WINDOW_NORMAL)
     cv2.imshow("CameraI", frame)
-    cv2.moveWindow("CameraI", 240,200)    
+    cv2.moveWindow("CameraI", 310,200)    
     #cv2.namedWindow('CameraI',cv2.WND_PROP_FULLSCREEN)
     #cv2.setWindowProperty('CameraI', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)   
     #cv2.resizeWindow("Camera I", 500, 500)   
@@ -118,5 +119,6 @@ while True:
     if key == ord("q"):
         break
     #un_name=run_once()
+vs.release()
 cv2.destroyAllWindows()
-vs.stop()
+#vs.stop()
