@@ -25,6 +25,8 @@ detector = cv2.CascadeClassifier(args["cascade"])
 vs2 = VideoStream(usePiCamera=True).start()
 #vs2=cv2.VideoCapture(0)
 time.sleep(2.0)
+check=[]
+main_time2=str(datetime.datetime.now())
 while True:
     frame = vs2.read()
     frame = imutils.resize(frame, width=500)
@@ -68,76 +70,79 @@ while True:
             content=f.read()
             travel=json.loads(content)
         f.close()
-        #code to WRITE the time-ends of journey
-        with open(filepath,'w') as f:
-            travel.update({'time-ends':timethen})
-            f.write(json.dumps(travel,default=lambda x: None))
-        f.close()
-        #code to READ to find the time in seconds difference
-        with open(filepath,'r')as f:
-            con=f.read()
-            mycon=json.loads(con)
-            l1=mycon["time-starts"]
-            t1=datetime.datetime.strptime(l1,'%Y-%m-%d %H:%M:%S.%f')
-            l2=mycon["time-ends"]
-            t2=datetime.datetime.strptime(l2,'%Y-%m-%d %H:%M:%S.%f')
-            seconds=int((t2-t1).total_seconds())
-            print(int(seconds))
-        f.close()
-        #function to fetch location2 of customers according to time in second
-        def fetch_location(seconds):
-            if seconds >=0 & seconds <=60:
-                location2="Surathkal"
-            if seconds >60 & seconds <=120:
-                location2="Manipal"
-            if seconds >120 & seconds <=180:
-                location2="Udupi"
-            if seconds >180:
-                location2="Batkal"
-            return location2
-        location2=fetch_location(seconds)
-        print(location2)
-        #code to READ the data from file for location2 updation
-        with open(filepath,'r') as f:
-            content=f.read()
-            travel=json.loads(content)
-        f.close()
-        #code to WRITE the data to file for location2 updation
-        with open(filepath,'w') as f:
-            travel.update({'location2':location2})
-            f.write(json.dumps(travel,default=lambda x: None))
-        f.close()
-        #code to READ the data from file for fare calculation
-        with open(filepath,'r')as f:
-            con=f.read()
-            mycon=json.loads(con)
-            loct1=mycon["location1"]
-            loct2=mycon["location2"]
-        f.close()
-        #dictionary that holds the value in kilometer of each place
-        our_location={'Mangalore':0,'Surathkal':10,'Manipal':30,'Udupi':50,'Batkal':70}
-        loc1=int(our_location.get(loct1))
-        loc2=int(our_location.get(loct2))
-        rate=5 # Rs 5 per Km
-        distance=loc2-loc1
-        bill=distance*rate
-        #code to WRITE the data to file for distance and bill
-        with open(filepath,'w') as f:
-            travel.update({'distance':distance,'bill':bill})
-            f.write(json.dumps(travel,default=lambda x: None))
-        f.close()
-        #code to READ the data to file for bill & name
-        with open(filepath,'r') as f:
-            f_con=f.read()
-            f_data=json.loads(f_con)
-            show_bill=f_data["bill"]
-            show_name=f_data["name"]
-            #print(show_bill)
-        f.close()
-        #code to send the data to cloud firestore
-        doc_name =''.join(random.choice(string.ascii_uppercase) for i in range(26)) 
-        db.collection(u'useraccount').document(doc_name).set(f_data)
-        #print("Data Sent to Firebase")
+        if travel["name"] in check:
+            pass
+        else:
+            #code to WRITE the time-ends of journey
+            with open(filepath,'w') as f:
+                travel.update({'time-ends':timethen})
+                f.write(json.dumps(travel,default=lambda x: None))
+            f.close()
+            #code to READ to find the time in seconds difference
+            with open(filepath,'r')as f:
+                con=f.read()
+                mycon=json.loads(con)
+                l1=mycon["time-starts"]
+                t1=datetime.datetime.strptime(l1,'%Y-%m-%d %H:%M:%S.%f')
+                l2=mycon["time-ends"]
+                t2=datetime.datetime.strptime(l2,'%Y-%m-%d %H:%M:%S.%f')
+                seconds=int((t2-t1).total_seconds())
+                print(int(seconds))
+            f.close()
+            #function to fetch location2 of customers according to time in second
+            def fetch_location(seconds):
+                if seconds in range(0,61):
+                    location2="Surathkal"
+                if seconds in range(61,121):
+                    location2="Manipal"
+                if seconds in range(121,181):
+                    location2="Udupi"
+                if seconds>180:
+                    location2="Batkal"
+                return location2
+            location2=fetch_location(seconds)
+            print(location2)
+            #code to READ the data from file for location2 updation
+            with open(filepath,'r') as f:
+                content=f.read()
+                travel=json.loads(content)
+            f.close()
+            #code to WRITE the data to file for location2 updation
+            with open(filepath,'w') as f:
+                travel.update({'location2':location2})
+                f.write(json.dumps(travel,default=lambda x: None))
+            f.close()
+            #code to READ the data from file for fare calculation
+            with open(filepath,'r')as f:
+                con=f.read()
+                mycon=json.loads(con)
+                loct1=mycon["location1"]
+                loct2=mycon["location2"]
+            f.close()
+            #dictionary that holds the value in kilometer of each place
+            our_location={'Mangalore':0,'Surathkal':10,'Manipal':30,'Udupi':50,'Batkal':70}
+            loc1=int(our_location.get(loct1))
+            loc2=int(our_location.get(loct2))
+            rate=5 # Rs 5 per Km
+            distance=loc2-loc1
+            bill=distance*rate
+            #code to WRITE the data to file for distance and bill
+            with open(filepath,'w') as f:
+                travel.update({'distance':distance,'bill':bill})
+                f.write(json.dumps(travel,default=lambda x: None))
+            f.close()
+            #code to READ the data to file for bill & name
+            with open(filepath,'r') as f:
+                f_con=f.read()
+                f_data=json.loads(f_con)
+                show_bill=f_data["bill"]
+                #print(show_bill)
+            f.close()
+            #code to send the data to cloud firestore
+            doc_name =''.join(random.choice(string.ascii_uppercase) for i in range(26)) 
+            db.collection(u'useraccount').document(doc_name).set(f_data)
+            check.append(f_data["name"])
+            #print("Data Sent to Firebase")
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names): 
         pay="Bill =" + str(show_bill)
@@ -153,7 +158,6 @@ while True:
     # display the image to our screen
     cv2.imshow("Camera II", frame)
     cv2.moveWindow("Camera II", 840,200)    
-    #cv2.resizeWindow(winname, width, height)
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
