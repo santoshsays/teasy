@@ -21,12 +21,14 @@ args = vars(ap.parse_args('-c haarcascade_frontalface_default.xml -e encodings.p
 data = pickle.loads(open(args["encodings"], "rb").read())
 detector = cv2.CascadeClassifier(args["cascade"])
 #url="http://192.168.43.30:8080"
-#vs = VideoStream(url+"/video").start()
-vs = VideoStream(0).start()
+#vs2 = VideoStream(url+"/video").start()
+vs2 = VideoStream(usePiCamera=True).start()
+#vs2=cv2.VideoCapture(0)
 time.sleep(2.0)
 while True:
-    frame = vs.read()
+    frame = vs2.read()
     frame = imutils.resize(frame, width=500)
+    #frame = cv2.resize(frame, (500, 400), interpolation = cv2.INTER_CUBIC) 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     rects = detector.detectMultiScale(gray, scaleFactor=1.1,
@@ -130,41 +132,15 @@ while True:
             f_data=json.loads(f_con)
             show_bill=f_data["bill"]
             show_name=f_data["name"]
-            print(show_bill)
+            #print(show_bill)
         f.close()
         #code to send the data to cloud firestore
-        # for i in count():
-        #     if i==0:
-        fp="/home/pi/tapp/account/"
-        with open(fp+show_name+".json","r") as fs:
-            fs_r=fs.read()
-            fs_data=json.loads(fs_r)
-            #send_id=fs_data["id"]
-            data = {
-                u'user-id': fs_data["id"],
-                u'name': fs_data["name"],
-                u'time-starts': fs_data["time-starts"],
-                u'location1': fs_data["location1"],
-                u'time-ends': fs_data["time-ends"],
-                u'location2': fs_data["location2"],
-                u'distance': fs_data["distance"],
-                u'bill': fs_data["bill"],
-                u'paid':u'false'
-            } 
-        fs.close()  
-        #code to generate  26 CHARACTERS Random Document name
-        def run_once():
-            un_name =''.join(random.choice(string.ascii_uppercase) for i in range(26))
-            print(un_name)
-            return un_name
-            run_once.func_code = (lambda:None).func_code
-        user_id=run_once()         
-        db.collection(u'useraccount').document(user_id).set(data)
-        print("Data Sent to Firebase")
-        #db.collection(u'useraccount').document(send_id).set(data)    
+        doc_name =''.join(random.choice(string.ascii_uppercase) for i in range(26)) 
+        db.collection(u'useraccount').document(doc_name).set(f_data)
+        #print("Data Sent to Firebase")
     # loop over the recognized faces
     for ((top, right, bottom, left), name) in zip(boxes, names): 
-        pay=str(show_bill)
+        pay="Bill =" + str(show_bill)
         cv2.rectangle(frame, (left, top), (right, bottom),
             (0, 255, 0), 2)
         y = top - 15 if top - 15 > 15 else top + 15
@@ -173,7 +149,7 @@ while True:
         x = bottom + 15 if bottom + 15 > 15 else bottom - 15
         #time.sleep(2.0)
         cv2.putText(frame, pay, (left, x), cv2.FONT_HERSHEY_SIMPLEX,
-            0.75, (0, 255,0), 2)       
+            0.75, (0, 255,0), 2)  
     # display the image to our screen
     cv2.imshow("Camera II", frame)
     cv2.moveWindow("Camera II", 840,200)    
@@ -182,4 +158,4 @@ while True:
     if key == ord("q"):
         break
 cv2.destroyAllWindows()
-vs.stop()
+vs2.stop()
