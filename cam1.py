@@ -14,6 +14,7 @@ detector = cv2.CascadeClassifier(args["cascade"])
 #vs = VideoStream(usePiCamera=True).start()
 vs=cv2.VideoCapture(0)
 time.sleep(2.0)
+main_time=str(datetime.datetime.now())
 while True:
     ret,frame = vs.read()
     #frame = imutils.resize(frame, width=500)
@@ -59,8 +60,26 @@ while True:
         #code for creating files for verified users 
         if name !="Unknown":
             filepath=os.path.join('/home/pi/tapp/account',"%s.json"%name)
+            #update code starts from here
             timenow=str(datetime.datetime.now())
-            travel={'id':id,'name':name,'time-starts':timenow,'location1':"Mangalore",'paid':"false"}
+            l1=main_time  
+            t1=datetime.datetime.strptime(l1,'%Y-%m-%d %H:%M:%S.%f')
+            l2=timenow
+            t2=datetime.datetime.strptime(l2,'%Y-%m-%d %H:%M:%S.%f')
+            final_time=int(t1-t2).total_seconds())
+            def fetch_location(final_time):
+                if final_time in range(0,61):
+                    location1="Mangalore"
+                if final_time in range(61,121):
+                    location1="Surathkal"
+                if final_time in range(121,181):
+                    location1="Manipal"
+                if final_time in range(181,241)
+                    location1="Udupi"
+                return location1
+            location1=fetch_location(final_time)
+            
+            travel={'id':id,'name':name,'time-starts':timenow,'location1':location1,'paid':"false"}
             j=json.dumps(travel,default=lambda x: None)
             with open(filepath,'w+') as f:
                 f.write(j)
