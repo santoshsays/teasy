@@ -93,13 +93,13 @@ while True:
             #function to fetch location2 of customers according to time in second
             def fetch_location(seconds):
                 if seconds in range(0,61):
-                    location2="Mangalore"
-                if seconds in range(61,121):
                     location2="Surathkal"
-                if seconds in range(121,181):
+                if seconds in range(61,121):
                     location2="Manipal"
-                if seconds in range(181,241):
+                if seconds in range(121,181):
                     location2="Udupi"
+                if seconds in range(181,241):
+                    location2="Batkal"
                 if seconds>241:
                     location2="Batkal"
                 return location2
