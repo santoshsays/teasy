@@ -66,7 +66,8 @@ while True:
             t1=datetime.datetime.strptime(l1,'%Y-%m-%d %H:%M:%S.%f')
             l2=timenow
             t2=datetime.datetime.strptime(l2,'%Y-%m-%d %H:%M:%S.%f')
-            final_time=int(t1-t2).total_seconds())
+            final_time=int((t1-t2).total_seconds())
+            print(final_time)
             def fetch_location(final_time):
                 if final_time in range(0,61):
                     location1="Mangalore"
@@ -74,11 +75,11 @@ while True:
                     location1="Surathkal"
                 if final_time in range(121,181):
                     location1="Manipal"
-                if final_time in range(181,241)
+                if final_time in range(181,241):
                     location1="Udupi"
                 return location1
             location1=fetch_location(final_time)
-            
+            print(location1)
             travel={'id':id,'name':name,'time-starts':timenow,'location1':location1,'paid':"false"}
             j=json.dumps(travel,default=lambda x: None)
             with open(filepath,'w+') as f:
@@ -94,10 +95,29 @@ while True:
             un_name="Unknown"
             un_path = '/home/pi/tapp/unknown/'
             cv2.imwrite(os.path.join(un_path , un_name+'.jpg'), frame)
-            print("image saved")
+            #print("image saved")
             filepath=os.path.join('/home/pi/tapp/account',"%s.json"%un_name)
-            timenow=str(datetime.datetime.now())
-            travel={'id':"Un",'name':un_name,'time-starts':timenow,'location1':"Mangalore"}
+            utimenow=str(datetime.datetime.now())
+            ul1=main_time  
+            ut1=datetime.datetime.strptime(ul1,'%Y-%m-%d %H:%M:%S.%f')
+            ul2=utimenow
+            ut2=datetime.datetime.strptime(ul2,'%Y-%m-%d %H:%M:%S.%f')
+            ufinal_time=int((ut1-ut2).total_seconds())
+            print(ufinal_time)
+            def ufetch_location(ufinal_time):
+                #global location
+                if ufinal_time in range(0,61):
+                    location="Mangalore"
+                if ufinal_time in range(61,121):
+                    location="Surathkal"
+                if ufinal_time in range(121,181):
+                    location="Manipal"
+                if ufinal_time in range(181,241):
+                    location="Udupi"
+                return location
+            ulocation1=ufetch_location(ufinal_time)
+            print(ulocation1)
+            travel={'id':"Un",'name':un_name,'time-starts':utimenow,'location1':ulocation1,'paid':'false'}
             j=json.dumps(travel,default=lambda x: None)
             with open(filepath,'w+') as f:
                 f.write(j)   
